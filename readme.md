@@ -10,4 +10,4 @@
 - **สาขาวิชา:** วิศวกรรมคอมพิวเตอร์
 
 ### การเผยแพร่ผลงาน
-เข้าชมหน้าเว็บไซต์จริงผ่าน GitHub Pages: [เปิดหน้าเว็บ My Profile](https://<USERNAME_GITHUB_ของคุณ>.github.io/<ชื่อ_REPO_ของคุณ>/)
+เข้าชมหน้าเว็บไซต์จริงผ่าน GitHub Pages: [เปิดหน้าเว็บ My Profile](https://kittanay-08.github.io/My_Profile/)
