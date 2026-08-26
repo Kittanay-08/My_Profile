@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="th" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- พื้นหลังแสงไฟตามเมาส์ -->
     <div class="cursor-glow" id="cursorGlow"></div>
 
     <main class="profile-card" id="tiltCard">
@@ -18,53 +17,71 @@
                 <span class="pulse-dot"></span>
                 <span class="status-text">Active Now</span>
             </div>
-            <div class="typing-container">
-                <span id="typingText"></span><span class="cursor">|</span>
-            </div>
+            
+            <!-- ปุ่มสลับโหมด Dark / Light -->
+            <button class="theme-toggle" id="themeToggle" title="สลับโหมด">
+                <span id="themeIcon">☀️</span>
+            </button>
         </header>
 
-        <section class="card-body">
-            <!-- ข้อมูลที่ 1: ชื่อ-นามสกุล -->
+        <div class="typing-container">
+            <span id="typingText"></span><span class="cursor">|</span>
+        </div>
+
+        <!-- ข้อมูลหลัก (บังคับตามเกณฑ์) -->
+        <section class="main-info">
             <div class="info-row">
                 <span class="info-label">ชื่อ-นามสกุล</span>
-                <span class="info-value">นายธนกฤต พงษ์สิทธิพร</span>
+                <span class="info-value">นาย กฤตนัย ดอนแสง</span>
             </div>
 
-            <!-- ข้อมูลที่ 2: รหัสนักศึกษา (กดคลิกเพื่อ Copy ได้) -->
             <div class="info-row copyable" id="copyStudentId" title="คลิกเพื่อคัดลอกรหัส">
                 <span class="info-label">รหัสนักศึกษา</span>
                 <div class="id-wrapper">
-                    <span class="info-value id-code" id="studentIdValue">66011234567</span>
+                    <span class="info-value id-code" id="studentIdValue">671540005006-5</span>
                     <span class="copy-icon">📋</span>
                 </div>
             </div>
+        </section>
 
-            <!-- ข้อมูลที่ 3: สาขาวิชา -->
-            <div class="info-row">
-                <span class="info-label">สาขาวิชา</span>
-                <span class="info-value">วิศวกรรมคอมพิวเตอร์</span>
+        <!-- แถบปุ่มเลือกดูข้อมูล (Interactive Tabs) -->
+        <nav class="tab-nav">
+            <button class="tab-btn active" data-target="tab-education">🎓 การศึกษา</button>
+            <button class="tab-btn" data-target="tab-interest">💡 ความชอบ & ความสนใจ</button>
+        </nav>
 
-
-            <!-- ข้อมูลใหม่ 2 รายการสำหรับข้อ 2 -->
-            <div class="info-row">
-                <span class="info-label">ชั้นปีการศึกษา</span>
-                <span class="info-value">ชั้นปีที่ 3</span>
+        <!-- เนื้อหาแท็บ -->
+        <section class="tab-content-wrapper">
+            <!-- แท็บ: สถานศึกษา -->
+            <div class="tab-panel active" id="tab-education">
+                <div class="info-row">
+                    <span class="info-label">สาขาวิชา</span>
+                    <span class="info-value">วิศวกรรมคอมพิวเตอร์</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">สถานศึกษา</span>
+                    <span class="info-value">มหาวิทยาลัยกาฬสินธฺุ</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">ชั้นปีการศึกษา</span>
+                    <span class="info-value">ชั้นปีที่ 3</span>
+                </div>
             </div>
-            <div class="info-row">
-                <span class="info-label">ความสนใจ</span>
-                <span class="info-value">Game Dev & Server Dev</span>
-            </div>
 
-            <!-- ข้อมูลข้อ 2: ชั้นปีการศึกษา -->
-            <div class="info-row">
-                <span class="info-label">ชั้นปีการศึกษา</span>
-                <span class="info-value">ชั้นปีที่ 3</span>
-            </div>
-
-            <!-- ข้อมูลข้อ 2: ความสนใจ -->
-            <div class="info-row">
-                <span class="info-label">ความสนใจ</span>
-                <span class="info-value">Software Engineering & Game Dev</span>
+            <!-- แท็บ: ความชอบ/ความสนใจ -->
+            <div class="tab-panel" id="tab-interest">
+                <div class="info-row">
+                    <span class="info-label">ความสนใจหลัก</span>
+                    <span class="info-value">3D & Game Dev</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">งานอดิเรก & ความชอบ</span>
+                    <span class="info-value">เล่นดนตรี & เล่นเกม</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">ทักษะที่สนใจ</span>
+                    <span class="info-value">Full-Stack & Cloud System</span>
+                </div>
             </div>
         </section>
 
@@ -73,7 +90,6 @@
         </footer>
     </main>
 
-    <!-- Toast แจ้งเตือนเมื่อ Copy สำเร็จ -->
     <div class="toast" id="toast">คัดลอกรหัสนักศึกษาแล้ว! ✨</div>
 
     <script src="script.js"></script>
