@@ -3,38 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Profile</title>
+    <title>Student Profile</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="profile-card">
-        <div class="card-header">
-            <h1>ข้อมูลนักศึกษา</h1>
-        </div>
-        <div class="card-body">
+    <!-- พื้นหลังแสงไฟตามเมาส์ -->
+    <div class="cursor-glow" id="cursorGlow"></div>
+
+    <main class="profile-card" id="tiltCard">
+        <div class="card-glow-overlay" id="glowOverlay"></div>
+
+        <header class="card-header">
+            <div class="status-badge">
+                <span class="pulse-dot"></span>
+                <span class="status-text">Active Now</span>
+            </div>
+            <div class="typing-container">
+                <span id="typingText"></span><span class="cursor">|</span>
+            </div>
+        </header>
+
+        <section class="card-body">
+            <!-- ข้อมูลที่ 1: ชื่อ-นามสกุล -->
             <div class="info-row">
                 <span class="info-label">ชื่อ-นามสกุล</span>
-                <span class="info-value">นาย กฤตนัย ดอนแสง</span>
+                <span class="info-value">นายธนกฤต พงษ์สิทธิพร</span>
             </div>
-            <div class="info-row">
+
+            <!-- ข้อมูลที่ 2: รหัสนักศึกษา (กดคลิกเพื่อ Copy ได้) -->
+            <div class="info-row copyable" id="copyStudentId" title="คลิกเพื่อคัดลอกรหัส">
                 <span class="info-label">รหัสนักศึกษา</span>
-                <span class="info-value">671540005006-5</span>
+                <div class="id-wrapper">
+                    <span class="info-value id-code" id="studentIdValue">66011234567</span>
+                    <span class="copy-icon">📋</span>
+                </div>
             </div>
+
+            <!-- ข้อมูลที่ 3: สาขาวิชา -->
             <div class="info-row">
                 <span class="info-label">สาขาวิชา</span>
                 <span class="info-value">วิศวกรรมคอมพิวเตอร์</span>
             </div>
 
-            <!-- ข้อมูลใหม่ 2 รายการสำหรับข้อ 2 -->
+            <!-- ข้อมูลข้อ 2: ชั้นปีการศึกษา -->
             <div class="info-row">
                 <span class="info-label">ชั้นปีการศึกษา</span>
                 <span class="info-value">ชั้นปีที่ 3</span>
             </div>
+
+            <!-- ข้อมูลข้อ 2: ความสนใจ -->
             <div class="info-row">
                 <span class="info-label">ความสนใจ</span>
-                <span class="info-value">Software Engineering & Web Development</span>
+                <span class="info-value">Software Engineering & Game Dev</span>
             </div>
-        </div>
-    </div>
+        </section>
+
+        <footer class="card-footer">
+            <span class="timestamp" id="liveTime">Loading time...</span>
+        </footer>
+    </main>
+
+    <!-- Toast แจ้งเตือนเมื่อ Copy สำเร็จ -->
+    <div class="toast" id="toast">คัดลอกรหัสนักศึกษาแล้ว! ✨</div>
+
+    <script src="script.js"></script>
 </body>
 </html>
