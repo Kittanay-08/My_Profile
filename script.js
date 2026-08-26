@@ -1,87 +1,82 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const card = document.getElementById('tiltCard');
-    const glowOverlay = document.getElementById('glowOverlay');
+    // 1. Cursor Glow
     const cursorGlow = document.getElementById('cursorGlow');
-    const copyBtn = document.getElementById('copyStudentId');
-    const studentIdVal = document.getElementById('studentIdValue');
-    const toast = document.getElementById('toast');
-    const liveTime = document.getElementById('liveTime');
-    const typingElement = document.getElementById('typingText');
-
-    // 1. แสงไฟติดตามเคอร์เซอร์ทั้งหน้าเว็บ
     window.addEventListener('mousemove', (e) => {
         cursorGlow.style.left = `${e.clientX}px`;
         cursorGlow.style.top = `${e.clientY}px`;
     });
 
-    // 2. เอฟเฟกต์ 3D Card Tilt & Spotlight Overlay
-    card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
+    // 2. Dark / Light Mode Toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const htmlTag = document.documentElement;
 
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-
-        const rotateX = ((y - centerY) / centerY) * -8;
-        const rotateY = ((x - centerX) / centerX) * 8;
-
-        card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-        glowOverlay.style.setProperty('--mouse-x', `${(x / rect.width) * 100}%`);
-        glowOverlay.style.setProperty('--mouse-y', `${(y / rect.height) * 100}%`);
+    themeToggle.addEventListener('click', () => {
+        const currentTheme = htmlTag.getAttribute('data-theme');
+        if (currentTheme === 'dark') {
+            htmlTag.setAttribute('data-theme', 'light');
+            themeIcon.textContent = '🌙';
+        } else {
+            htmlTag.setAttribute('data-theme', 'dark');
+            themeIcon.textContent = '☀️';
+        }
     });
 
-    card.addEventListener('mouseleave', () => {
-        card.style.transform = 'rotateX(0deg) rotateY(0deg)';
-    });
+    // 3. Tab Switching System (การศึกษา / ความชอบ)
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabPanels = document.querySelectorAll('.tab-panel');
 
-    // 3. คลิกเพื่อคัดลอกรหัสนักศึกษา (Click-to-Copy) พร้อม Toast
-    copyBtn.addEventListener('click', () => {
-        const idText = studentIdVal.innerText.trim();
-        navigator.clipboard.writeText(idText).then(() => {
-            toast.classList.add('show');
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 2500);
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            tabBtns.forEach(b => b.classList.remove('active'));
+            tabPanels.forEach(p => p.classList.remove('active'));
+
+            btn.classList.add('active');
+            const targetId = btn.getAttribute('data-target');
+            document.getElementById(targetId).classList.add('active');
         });
     });
 
-    // 4. Typewriter Effect (แอนิเมชันพิมพ์ตัวอักษร)
+    // 4. Click to Copy Student ID
+    const copyBtn = document.getElementById('copyStudentId');
+    const idVal = document.getElementById('studentIdValue');
+    const toast = document.getElementById('toast');
+
+    copyBtn.addEventListener('click', () => {
+        navigator.clipboard.writeText(idVal.innerText.trim()).then(() => {
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2000);
+        });
+    });
+
+    // 5. Typewriter Effect
     const words = ["Computer Engineering", "Software Developer", "Web Systems"];
-    let wordIndex = 0;
-    let charIndex = 0;
-    let isDeleting = false;
+    const typingElement = document.getElementById('typingText');
+    let wordIdx = 0, charIdx = 0, isDeleting = false;
 
     function type() {
-        const currentWord = words[wordIndex];
-        if (isDeleting) {
-            typingElement.textContent = currentWord.substring(0, charIndex - 1);
-            charIndex--;
-        } else {
-            typingElement.textContent = currentWord.substring(0, charIndex + 1);
-            charIndex++;
-        }
+        const word = words[wordIdx];
+        typingElement.textContent = isDeleting ? word.substring(0, charIdx--) : word.substring(0, charIdx++);
+        let speed = isDeleting ? 40 : 80;
 
-        let typeSpeed = isDeleting ? 40 : 90;
-
-        if (!isDeleting && charIndex === currentWord.length) {
-            typeSpeed = 1500; // หยุดรอเมื่อพิมพ์เสร็จ
+        if (!isDeleting && charIdx === word.length + 1) {
+            speed = 1400;
             isDeleting = true;
-        } else if (isDeleting && charIndex === 0) {
+        } else if (isDeleting && charIdx === 0) {
             isDeleting = false;
-            wordIndex = (wordIndex + 1) % words.length;
-            typeSpeed = 400;
+            wordIdx = (wordIdx + 1) % words.length;
+            speed = 300;
         }
-
-        setTimeout(type, typeSpeed);
+        setTimeout(type, speed);
     }
     type();
 
-    // 5. แสดงเวลา Real-time
-    function updateTime() {
+    // 6. Real-time Clock
+    const liveTime = document.getElementById('liveTime');
+    function updateClock() {
         const now = new Date();
         liveTime.textContent = `Local Time: ${now.toLocaleTimeString('th-TH')}`;
     }
-    setInterval(updateTime, 1000);
-    updateTime();
+    setInterval(updateClock, 1000);
+    updateClock();
 });
