@@ -1,13 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Prompt:wght@300;400;500;600&display=swap');
 
 :root {
-    --bg-page: #f8fafc;
-    --card-bg: #ffffff;
-    --border-subtle: #e2e8f0;
-    --text-primary: #0f172a;
-    --text-secondary: #64748b;
-    --accent: #0284c7;
-    --accent-light: #f0f9ff;
+    --bg-main: #090d16;
+    --card-bg: rgba(15, 23, 42, 0.75);
+    --card-border: rgba(255, 255, 255, 0.08);
+    --row-bg: rgba(255, 255, 255, 0.03);
+    --row-border: rgba(255, 255, 255, 0.05);
+    --row-hover: rgba(56, 189, 248, 0.06);
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --cyan-glow: #38bdf8;
+    --violet-glow: #818cf8;
 }
 
 * {
@@ -17,111 +20,121 @@
 }
 
 body {
-    background-color: var(--bg-page);
-    background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
-    background-size: 24px 24px;
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 24px;
-    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-    color: var(--text-primary);
+    background-color: var(--bg-main);
+    background-image: 
+        radial-gradient(at 0% 0%, rgba(56, 189, 248, 0.15) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(129, 140, 248, 0.15) 0px, transparent 50%),
+        radial-gradient(#1e293b 1px, transparent 1px);
+    background-size: 100% 100%, 100% 100%, 28px 28px;
+    font-family: 'Prompt', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--text-main);
     -webkit-font-smoothing: antialiased;
 }
 
 .profile-card {
-    background: var(--card-bg);
-    width: 100%;
-    max-width: 440px;
-    border-radius: 20px;
-    border: 1px solid var(--border-subtle);
-    box-shadow: 
-        0 1px 3px rgba(0, 0, 0, 0.04),
-        0 12px 24px -4px rgba(15, 23, 42, 0.06);
-    padding: 36px 32px;
     position: relative;
+    width: 100%;
+    max-width: 450px;
+    background: var(--card-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--card-border);
+    border-radius: 24px;
+    padding: 36px 30px;
+    box-shadow: 
+        0 0 0 1px rgba(255, 255, 255, 0.05),
+        0 20px 50px -10px rgba(0, 0, 0, 0.7);
     overflow: hidden;
 }
 
-/* แถบไฮไลต์ด้านบนการ์ด */
 .profile-card::before {
     content: '';
     position: absolute;
     top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, #0284c7, #38bdf8);
+    left: 20%;
+    right: 20%;
+    height: 1.5px;
+    background: linear-gradient(90deg, transparent, var(--cyan-glow), var(--violet-glow), transparent);
 }
 
 .card-header {
     margin-bottom: 28px;
-    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .card-header h1 {
     font-size: 1.35rem;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    color: var(--text-primary);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    background: linear-gradient(135deg, #ffffff 40%, #94a3b8);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
 }
 
-/* จุดสถานะสีเขียวข้างหัวข้อ */
 .card-header h1::before {
     content: '';
     display: inline-block;
-    width: 8px;
-    height: 8px;
+    width: 9px;
+    height: 9px;
     border-radius: 50%;
-    background-color: #10b981;
-    box-shadow: 0 0 0 3px #d1fae5;
+    background: #10b981;
+    box-shadow: 0 0 12px #10b981;
 }
 
 .card-body {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 12px;
 }
 
 .info-row {
     display: flex;
-    flex-direction: column;
-    gap: 4px;
-    padding: 14px 16px;
-    background: #f8fafc;
-    border: 1px solid #f1f5f9;
-    border-radius: 12px;
-    transition: all 0.2s ease;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 18px;
+    background: var(--row-bg);
+    border: 1px solid var(--row-border);
+    border-radius: 14px;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .info-row:hover {
-    background: #ffffff;
-    border-color: var(--border-subtle);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
-    transform: translateY(-1px);
+    background: var(--row-hover);
+    border-color: rgba(56, 189, 248, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px -4px rgba(56, 189, 248, 0.15);
 }
 
 .info-label {
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--text-secondary);
+    font-size: 0.82rem;
+    font-weight: 400;
+    color: var(--text-muted);
 }
 
 .info-value {
     font-size: 0.95rem;
-    font-weight: 600;
-    color: var(--text-primary);
+    font-weight: 500;
+    color: var(--text-main);
 }
 
-/* จัดฟอนต์ Monospace เฉพาะรหัสนักศึกษา */
 .info-row:nth-child(2) .info-value {
     font-family: 'JetBrains Mono', monospace;
-    letter-spacing: 0.03em;
-    color: var(--accent);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--cyan-glow);
+    background: rgba(56, 189, 248, 0.1);
+    padding: 4px 10px;
+    border-radius: 8px;
+    border: 1px solid rgba(56, 189, 248, 0.2);
 }
